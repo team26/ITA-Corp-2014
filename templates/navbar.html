@@ -19,16 +19,16 @@
 				<a href="/news">News</a>
 			</li>
 			<li 
+			{% if NAV_ACTIVE == 'jobs' %} 
+			class="active"
+			{% endif %} >
+				<a href="/jobs">Jobs</a>
+			</li>
+			<li 
 			{% if NAV_ACTIVE == 'about' %} 
 			class="active"
 			{% endif %} >
 				<a href="/about">About</a>
-			</li>
-			<li 
-			{% if NAV_ACTIVE == 'jobs' %} 
-			class="active"
-			{% endif %} >
-				<a href="/news">Jobs</a>
 			</li>
 		</ul>
         </div><!--/.navbar-collapse -->
