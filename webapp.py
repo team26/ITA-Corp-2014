@@ -18,29 +18,40 @@ def index():
         no_news = True
         top = 0
 
-    return render_template('index.html', NEWS=top, NO_NEWS = no_news,\
-            ADMIN=session['admin'])
+    return render_template('index.html', NEWS=top, NO_NEWS = no_news)
 
 @app.route("/news")
 def news():
     newsPosts = reversed(NewsPost.query.all())
-    return render_template('news.html', NEWSPOSTS=newsPosts, NAV_ACTIVE='news')
+
+    return render_template('news.html', NEWSPOSTS=newsPosts, \
+            NAV_ACTIVE='news')
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         if request.form['password'] == admin_password:
             session['admin'] = True
+            return redirect("/admin")
         else:
             return render_template('login.html', INCORRECT=True)
     else:
         return render_template('login.html', INCORRECT=False);
 
+@app.route("/admin")
+def admin():
+    if 'admin' in session:
+        if session['admin'] == True:
+            return "Admin Corner"
+    return redirect("/login")
+ 
 @app.route("/logout")
 def logout():
+    if not 'admin' in session:
+        return redirect("/")
     if session['admin'] == True:
-        session['admin'] == False
-    redirect("/index.html")
+        session['admin'] = False
+    return redirect("/")
 
 @app.errorhandler(404)
 def err404(e):
