@@ -38,11 +38,18 @@ def login():
     else:
         return render_template('login.html', INCORRECT=False);
 
-@app.route("/admin")
+@app.route("/admin", methods=['GET', 'POST'])
 def admin():
+    splash = '';
     if 'admin' in session:
         if session['admin'] == True:
-            return "Admin Corner"
+            if request.method == 'POST':
+                if request.form['mode'] == 'news':
+                    n = NewsPost(request.form['heading'], request.form['body'])
+                    db_session.add(n)
+                    db_session.commit()
+                    splash='News Post Created'
+            return render_template('admin.html', SPLASH=splash)
     return redirect("/login")
  
 @app.route("/logout")
