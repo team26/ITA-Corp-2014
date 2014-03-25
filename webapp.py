@@ -9,8 +9,14 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     newsPosts = NewsPost.query.all()
-    top = newsPosts[len(newsPosts)-1]
-    return render_template('index.html', NEWS=top)
+    if len(newsPosts) > 0:
+        top = newsPosts[len(newsPosts)-1]
+        no_news = False
+    else:
+        no_news = True
+        top = 0
+
+    return render_template('index.html', NEWS=top, NO_NEWS = no_news)
 
 @app.route("/news")
 def news():

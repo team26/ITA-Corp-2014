@@ -45,9 +45,13 @@
       <div class="row">
         <div class="col-md-4">
           <h2>News</h2>
-	  <h3>{{NEWS.heading}}</h3>
-	  <p>{{NEWS.body}}</p>
-          <p><a class="btn btn-default" href="news" role="button">More News &raquo;</a></p>
+            {% if NO_NEWS == False %}
+	        <h3>{{NEWS.heading}}</h3>
+	        <p>{{NEWS.body}}</p>
+            {% else %}
+            <h3> No recent news </h3>
+            {% endif %}
+            <p><a class="btn btn-default" href="news" role="button">More News &raquo;</a></p>
         </div>
         <div class="col-md-4">
           <h2>Jobs</h2>
@@ -69,7 +73,10 @@
       <hr>
 
       <footer>
-        <p>&copy; Classified Defense Contractors 2014</p>
+        <p>&copy; Classified Defense Contractors 2014
+	<br>
+	<a href="/admin">Admin</a>
+	</p>
       </footer>
     </div> <!-- /container -->
 
