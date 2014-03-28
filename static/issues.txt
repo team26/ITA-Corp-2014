@@ -1,0 +1,3 @@
+Server returns 400 if forms are modified
+Server crashes if no ?next and pw correct
+Server crashes if /logout visited with no session cookie

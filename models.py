@@ -13,3 +13,16 @@ class NewsPost(Base):
 
     def __repr__(self):
         return '<News %r>' % (self.heading)
+class Job(Base):
+    __tablename__ = 'jobs'
+    id = Column(Integer, primary_key=True)
+    title = Column(String(32))
+    desc = Column(String(256))
+    exp = Column(String(128))
+
+    def __init__(self, title=None, desc=None, exp=None):
+        self.title = title
+        self.desc = desc
+        self.exp = exp
+    def __repr__(self):
+        return '<Job %r>' % (self.title)

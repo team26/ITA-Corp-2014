@@ -30,32 +30,43 @@ def news():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        if request.form['password'] == admin_password:
+        if request.form.get('password') == admin_password:
             session['admin'] = True
-            return redirect("/admin")
+            if 'next' in request.args: 
+                return redirect(request.args.get('next'))
+#           return redirect('/')
         else:
             return render_template('login.html', INCORRECT=True)
     else:
         return render_template('login.html', INCORRECT=False);
 
-@app.route("/admin", methods=['GET', 'POST'])
-def admin():
+@app.route("/admin_news", methods=['GET', 'POST'])
+def admin_news():
     splash = '';
-    if 'admin' in session:
-        if session['admin'] == True:
-            if request.method == 'POST':
-                if request.form['mode'] == 'news':
-                    n = NewsPost(request.form['heading'], request.form['body'])
-                    db_session.add(n)
-                    db_session.commit()
-                    splash='News Post Created'
-            return render_template('admin.html', SPLASH=splash)
-    return redirect("/login")
+    if session.get('admin') == True:
+        if request.method == 'POST':
+            n = NewsPost(request.form.get('heading'), request.form.get('body'))
+            db_session.add(n)
+            db_session.commit()
+            splash='News Post Created'
+        return render_template('admin_news.html', SPLASH=splash)
+    return redirect("/login?next=/admin_news")
  
+@app.route("/admin_jobs", methods=['GET', 'POST'])
+def admin_jobs():
+    splash = '';
+    if session.get('admin') == True:
+        if request.method == 'POST':
+            n = Job(request.form.get('title'), request.form('desc'), ('exp'))
+            db_session.add(n)
+            db_session.commit()
+            splash='Job Created'
+        return render_template('admin_jobs.html', SPLASH=splash)
+    return redirect("/login?next=/admin_jobs")
+
 @app.route("/logout")
 def logout():
-    if not 'admin' in session:
-        return redirect("/")
+#   if session.get('admin') == True:
     if session['admin'] == True:
         session['admin'] = False
     return redirect("/")

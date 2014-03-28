@@ -1,0 +1,7 @@
+User-Agent: redteam
+Disallow: /login
+Disallow: /logout
+Disallow: /admin*
+Disallow: /static/js
+Disallow: /static/issues.txt
+Disallow: /static/css

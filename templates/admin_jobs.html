@@ -9,11 +9,12 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>CDC - News</title>
+    <title>Classified Defense Contractors</title>
 
-    {% endblock %}
     <!-- Bootstrap core CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="/static/css/admin.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -23,32 +24,26 @@
   </head>
 
   <body>
-    {% block body %}
-    {% include 'navbar.html' %}
 
-    {% for post in NEWSPOSTS %}
-
-    <div class="jumbotron">
-      <div class="container">
-        <h2>
-          {{post.heading}}
-        </h2>
-        <p>
-          {{post.body}}
-        </p>
-      </div>
-    </div>
-
-      <hr>
-    {% endfor %}
+    <div class="container">
 
 
-      <footer>
-      {% include 'footer.html' %}
-      </footer>
+    <a class="btn btn-lg btn-primary btn-block" role="button" href="/logout">Log Out Admin</a>
+	    <p> {{ SPLASH }} </p>
+
+    <hr>
+
+      <form class="form-signin" role="form" target="/login" method="post">
+        <h2 class="form-signin-heading">Create New News Post</h2>
+        <h3>Heading</h3>
+        <input name="title" type="text" class="form-control" required>
+        <h3>Body</h3>
+        <textarea name='desc' required> </textarea>
+        <textarea name='exp' required> </textarea>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Create<button>
+      </form>
+
     </div> <!-- /container -->
-
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
