@@ -34,6 +34,10 @@ def jobs():
     return render_template('jobs.html', JOBS=jobs, \
             NAV_ACTIVE='jobs')
 
+@app.route("/about")
+def about():
+    return render_template("about.html", NAV_ACTIVE='about')
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
