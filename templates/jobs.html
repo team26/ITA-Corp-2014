@@ -9,11 +9,12 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>CDC - News</title>
+    <title>CDC - Jobs</title>
 
     {% endblock %}
     <!-- Bootstrap core CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/jobs.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -26,24 +27,51 @@
     {% block body %}
     {% include 'navbar.html' %}
 
-    {% autoescape false %}
-    {% for post in NEWSPOSTS %}
 
     <div class="jumbotron">
       <div class="container">
         <h2>
-          {{post.heading}}
+          CDC Is Hiring!
         </h2>
         <p>
-          {{post.body}}
+          Below are our available job positions.
         </p>
       </div>
     </div>
-
-      <hr>
+    
+    {% set color = 'a' %}
+    <div class="container">
+    
+    <div class="row background-blue">
+        <div class="col-md-2 joblisting-borders background-blue"><p>Job Title</p></div>
+        <div class="col-md-7 joblisting-borders background-blue"><p>Job Description</p></div>
+        <div class="col-md-3 joblisting-borders background-blue"><p>Required Experience</p></div>
+    </div>
+    
+    {% autoescape false %}
+    {% for job in JOBS %}
+    {% if color == 'a' %}
+    <div class="row background-grey">
+        <div class="col-md-2 joblisting-borders background-grey"><p> {{job.title}} </p></div>
+        <div class="col-md-7 joblisting-borders background-grey"><p> {{job.desc}} </p></div>
+        <div class="col-md-3 joblisting-borders background-grey"><p> {{job.exp}} </p></div>
+    </div>
+    {% else %}
+    <div class="row background-blue">
+        <div class="col-md-2 joblisting-borders background-blue"><p> {{job.title}} </p></div>
+        <div class="col-md-7 joblisting-borders background-blue"><p> {{job.desc}} </p></div>
+        <div class="col-md-3 joblisting-borders background-blue"><p> {{job.exp}} </p></div>
+    </div>
+    {% endif %}
+    {% if color == 'a' %}
+    {% set color = 'b' %}
+    {% else %}
+    {% set color = 'a' %}
+    {% endif %}
+    
     {% endfor %}
-
     {% endautoescape %}
+
 
       <footer>
       {% include 'footer.html' %}

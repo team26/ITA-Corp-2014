@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, Response
 from cdc_db import init_db, db_session
-from models import NewsPost
+from models import NewsPost, Job
 
 init_db()
 
@@ -26,6 +26,13 @@ def news():
 
     return render_template('news.html', NEWSPOSTS=newsPosts, \
             NAV_ACTIVE='news')
+
+@app.route("/jobs")
+def jobs():
+    jobs = db_session.query(Job).all()
+
+    return render_template('jobs.html', JOBS=jobs, \
+            NAV_ACTIVE='jobs')
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -57,7 +64,7 @@ def admin_jobs():
     splash = '';
     if session.get('admin') == True:
         if request.method == 'POST':
-            n = Job(request.form.get('title'), request.form('desc'), ('exp'))
+            n = Job(request.form.get('title'), request.form.get('desc'), request.form.get('exp'))
             db_session.add(n)
             db_session.commit()
             splash='Job Created'
@@ -77,6 +84,10 @@ def err404(e):
 
 #Make this EXTREMELY SECURE
 app.secret_key = 'supersecret'
+
+@app.route("/robots.txt")
+def robots():
+    return Response(render_template("robots.txt"), mimetype='text/plain')
 
 if __name__ == "__main__":
 #NEVER run as app.debug = True

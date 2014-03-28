@@ -1,7 +1,10 @@
 User-Agent: redteam
 Disallow: /login
 Disallow: /logout
-Disallow: /admin*
+Disallow: /admin_jobs
+Disallow: /admin_news
 Disallow: /static/js
 Disallow: /static/issues.txt
 Disallow: /static/css
+Disallow: /*
+Allow: /redirect_to_meatspin
