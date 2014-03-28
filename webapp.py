@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    newsPosts = NewsPost.query.all()
+    newsPosts = db_session.query(NewsPost).all()
     if len(newsPosts) > 0:
         top = newsPosts[len(newsPosts)-1]
         no_news = False
@@ -20,7 +20,7 @@ def index():
 
 @app.route("/news")
 def news():
-    newsPosts = reversed(NewsPost.query.all())
+    newsPosts = reversed(db_session.query(NewsPost).all())
     return render_template('news.html', NEWSPOSTS=newsPosts, NAV_ACTIVE='news')
 
 @app.errorhandler(404)
